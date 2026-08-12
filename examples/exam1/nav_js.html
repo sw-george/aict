@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>JS 切换选中下划线菜单</title>
+<style>
+/* 菜单基础样式 */
+ul.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background: #f5f5f5;
+}
+
+ul.menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* 悬停效果 */
+ul.menu li:hover {
+    background-color: #e0e0e0;
+}
+
+/* 选中状态样式 */
+ul.menu li.active {
+    border-bottom: 3px solid #007BFF;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<ul class="menu">
+    <li class="active"><a herf="./nav_js.html">首页</a></li>
+    <li><a herf="./nav_js2.html"></a>产品</a></li>
+    <li><a herf=""></a>服务</a></li>
+    <li><a herf=""></a>关于</a>
+        <ul>
+            <li><a herf=""></a>联系我们</a></li>
+            <li><a herf=""></a>友情</a></li>
+        </ul>
+    </li>
+</ul>
+
+
+<!-- JavaScript to load selectedMenu -->
+<script src=".\selectedMenu.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* -----------------global begin-------------- */
+body {
+    margin: 1px;
+    padding: 1px;
+    /* 网页的高度可以根据内容的大小自动调整，用vh单位 */
+    min-height: 60vh;
+    /* background-color: black; */
+    background-image: url('../images/body_background.jpg');
+    font-family: 'VCR OSD Mono', monospace;
+}
+
+header {
+    margin: 0px 0px;
+    /* padding: 10px 10px; */
+}
+
+@font-face {
+    font-family: 'VCR OSD Mono';
+    src: url('../fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+    font-display: swap;
+}
+
+/* ------------------global end---------------- */
+
+/* -------------layout begin------------------- */
+#page_header {
+    /* background-color: darkgreen; */
+    height: 180px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#logo {
+    float: left;
+    /* background-color: chocolate; */
+    height: 124px;
+    width: 15%;
+    background-image: url('../images/logo-Ultrakill.png');
+    background-size: contain;
+    /* background-position: left; */
+    background-position-x: 0px;
+    background-position-y: 20px;
+    background-repeat: no-repeat;
+}
+
+#web_title {
+    float: right;
+    height: 124px;
+    width: 84%;
+    background-image: url('../images/background-ultrakill.jpg');
+    Background-size: contain;
+    background-repeat: repeat-x;
+    /* background-color: brown; */
+    /* padding-left: 30px; */
+    /* 文本垂直居中，等于其div的height,这里是h1的高度 */
+    line-height: 80px;
+    /* 文本缩进和颜色，不要用padding和margin之类设置 */
+    text-indent: 20px;
+    color: white;
+}
+
+#navbar {
+    float: left;
+    background-color: #2b2b2b;
+    /* height: 56px; */
+    /* width: 100%; */
+    /* margin: 0px; */
+    /* padding: 0px; */
+    /* display: block;
+    justify-content: center; */
+    /* 文本垂直居中，等于其div的height,这里是navbar或dropdown的高度 */
+    /* line-height: 56px; */
+}
+
+#sidebar {
+    float: left;
+    background-color: aqua;
+    /* 网页的高度可以根据内容的大小自动调整，用vh单位 */
+    /* height: 500px; */
+    min-height: 100vh;
+    width: 16%;
+    /* 文本缩进和颜色，不要用padding和margin之类设置 */
+    text-indent: 10px;
+    color: white;
+}
+
+#posts {
+    float: right;
+    background-color: blue;
+    /* 网页的高度可以根据内容的大小自动调整，用vh单位 */
+    /* height: 500px; */
+    min-height: 100vh;
+    width: 84%;
+    /* 文本缩进和颜色，不要用padding和margin之类设置 */
+    text-indent: 10px;
+    color: white;
+}
+
+#page_footer {
+    clear: both;
+    display: block;
+    background-color: grey;
+    height: 100px;
+    width: auto;
+}
+
+/* ---------------layout end------------------- */
+
+/* ---------------nav begin-------------------- */
+
+#navbar ul {
+    margin: 10px;
+    padding: 0px;
+    /* 去掉菜单项中项目符号 */
+    list-style-type: none;
+    
+}
+
+/* ------------nav end--------------- */

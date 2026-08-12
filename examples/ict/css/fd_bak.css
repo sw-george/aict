@@ -1,0 +1,272 @@
+/* -----------------global begin-------------- */
+body {
+    margin: 1px;
+    padding: 1px;
+    /* 网页的高度可以根据内容的大小自动调整，用vh单位 */
+    min-height: 60vh;
+    /* background-color: black; */
+    background-image: url('../images/body_background.jpg');
+    font-family: 'VCR OSD Mono', monospace;
+}
+
+header {
+    margin: 0px 0px;
+    /* padding: 10px 10px; */
+}
+
+@font-face {
+    font-family: 'VCR OSD Mono';
+    src: url('../fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+    font-display: swap;
+}
+
+/* ------------------global end---------------- */
+
+/* -------------layout begin------------------- */
+#page_header {
+    /* background-color: darkgreen; */
+    height: 180px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#logo {
+    float: left;
+    /* background-color: chocolate; */
+    height: 124px;
+    width: 15%;
+    background-image: url('../images/logo-Ultrakill.png');
+    background-size: contain;
+    /* background-position: left; */
+    background-position-x: 0px;
+    background-position-y: 20px;
+    background-repeat: no-repeat;
+}
+
+#web_title {
+    float: right;
+    height: 124px;
+    width: 84%;
+    background-image: url('../images/background-ultrakill.jpg');
+    Background-size: contain;
+    background-repeat: repeat-x;
+    /* background-color: brown; */
+    /* padding-left: 30px; */
+    /* 文本垂直居中，等于其div的height,这里是h1的高度 */
+    line-height: 80px;
+    /* 文本缩进和颜色，不要用padding和margin之类设置 */
+    text-indent: 20px;
+    color: white;
+}
+
+#navbar {
+    float: left;
+    background-color: #2b2b2b;
+    height: 56px;
+    width: 100%;
+
+}
+
+#sidebar {
+    float: left;
+    background-color: aqua;
+    /* 网页的高度可以根据内容的大小自动调整，用vh单位 */
+    /* height: 500px; */
+    min-height: 100vh;
+    width: 16%;
+    /* 文本缩进和颜色，不要用padding和margin之类设置 */
+    text-indent: 10px;
+    color: white;
+}
+
+#posts {
+    float: right;
+    background-color: blue;
+    /* 网页的高度可以根据内容的大小自动调整，用vh单位 */
+    /* height: 500px; */
+    min-height: 100vh;
+    width: 84%;
+    /* 文本缩进和颜色，不要用padding和margin之类设置 */
+    text-indent: 10px;
+    color: white;
+}
+
+#page_footer {
+    clear: both;
+    display: block;
+    background-color: grey;
+    height: 100px;
+    width: auto;
+}
+
+/* ---------------layout end------------------- */
+
+/* ---------------nav begin-------------------- */
+.dropdown {
+    display: flex;
+    justify-content: center;
+    /* 文本垂直居中，等于其div的height,这里是navbar或dropdown的高度 */
+    line-height: 56px;
+    width: 100%;
+    list-style-type: none;
+    /* border: 1px solid rgba(0, 0, 0, 0.3); */
+    margin: 0px;
+    padding: 0px;
+    position: relative;
+}
+
+.dropdown li {
+    /* padding: 8px; */
+    position: relative;
+    background-color: #2b2b2b;
+    /* height: 56px; */
+    min-width: 120px;
+    text-align: center;
+    /* color: white; */
+    font-weight: bold;
+    font-size: larger;
+}
+
+/* .dropdown li::after {
+    background-color: #151572;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.dropdown li.active::after {
+    transform: scaleX(1);
+    background-color: #151572;
+    transition: none;
+} */
+
+.dropdown li a {
+    display: block;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+}
+
+.dropdown li a:hover {
+    color: crimson;
+}
+
+/* :active鼠标点击后会消失 */
+.dropdown li a:nth-of-type(1):focus {
+    background-color: #151572;
+    color: crimson;
+}
+
+.dropdown li a:visited {
+    background-color: #151572;
+    color: crimson;
+}
+
+.dropdown li:hover {
+    cursor: pointer;
+    background-color: #3f2a2d;
+    /* box-shadow: 0 5px #666; */
+    transform: translateY(4px);
+    transition: transform 0.2s ease;
+    /* 主菜单变色 */
+    color: crimson;
+}
+
+.dropdown li:hover>ul {
+    display: block;
+}
+
+/* subnav的ul */
+.dropdown ul {
+    display: none;
+    position: absolute;
+    /* left: 0px;
+    top: 0px; */
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    list-style-type: none;
+    background-color: #2b2b2b;
+    padding: 20px 20px;
+    min-width: 165px;
+    /* 无效z-index */
+    z-index: 1;
+}
+
+/* subnav文本设置 */
+.dropdown ul li {
+    text-align: left;
+    text-indent: 20px;
+    min-width: 250px;
+    /* color: white; */
+}
+
+.dropdown ul li::after {
+    background-color: rgb(131, 122, 124);
+}
+
+/* 文本字体和颜色设置 */
+.dropdown ul li a {
+    display: block;
+    width: 100%;
+    /* color: white; */
+    text-decoration: none;
+}
+
+.dropdown ul li:hover a {
+    background-color: #3f2a2d;
+    transform: translateY(4px);
+    transition: transform 0.2s ease;
+    /* 主菜单变色 */
+    color: crimson;
+}
+
+.dropdown ul li::active {
+    color: #e60000;
+    /* 活动状态时文字颜色为红色 */
+    background-color: #ffffcc;
+    /* 添加黄色背景 */
+    transform: scale(0.95);
+    /* 缩小链接 */
+}
+
+/* .dropdown ul li a:active::after {
+  content: " (正在加载...)"; 显示正在加载的信息
+} */
+
+/* 导航父项增加向下的三角箭头-有效 */
+.dropdown li.has-dropdown {
+    position: relative;
+    color: white;
+}
+
+.dropdown li.has-dropdown:hover {
+    color: crimson;
+}
+
+.dropdown li.has-dropdown::after {
+    /* 没有content不显示 */
+    content: "";
+    position: absolute;
+    /* 垂直居中:用固定值top: 5px */
+    /* top: 50%; */
+    /* margin-top: -2px; */
+    top: 25px;
+    /* 靠近文字的距离，负则靠右，但会超出边界 */
+    right: 0px;
+    /* margin-left: 10px; */
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid white;
+}
+
+.dropdown li.has-dropdown:hover::after {
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    /* border-top: 6px solid yellow; */
+
+    /* 旋转,旋转平滑 */
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+/* ------------nav end--------------- */

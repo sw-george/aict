@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    position: fixed;
+    /* 固定在页面顶部 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--header-footer-text);
+    padding: 10px 20px;
+    z-index: 1000;
+    /* 确保在最上层 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* 左侧 Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* 隐藏状态（向上滑出） */
+header.hidden {
+    transform: translateY(-100%);
+}
+
+/* 主体内容需要留出 header 高度 */
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-height: calc(100vh - 120px);
+    /* 减去 header/footer 高度 */
+    padding-top: 80px;
+    /* 根据 header 高度调整 */
+}
+
+.sidebar {
+    background-color: var(--card-bg);
+    padding: 1rem;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 1rem;
+}
+
+.sidebar a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+h2 {
+    margin-top: 0.8rem;
+}
+
+/* 底部居中 */
+.site-footer {
+    background-color: var(--header-footer-bg);
+    color: var(--header-footer-text);
+    text-align: center;
+    padding: 1rem;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: -1;
+        /* 移到顶部 */
+    }
+}
+
+/* @media (width >= 640px) {
+    @media not all and (width >= 1200px) {
+        .sm\:max-lg\:pe-\[calc\(var\(--spacing-margin\)-13px\)\] {
+            padding-inline-end: calc(var(--spacing-margin) - 13px);
+        }
+    }
+} */

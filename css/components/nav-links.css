@@ -1,0 +1,122 @@
+/* main nav code goes here */
+/* 中间导航居中，导航父容器 */
+.nav-links {
+    display: flex;
+    /* flex: 0 0 480px; */
+    /* 占据中间空间 */
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--nav-border-radius);
+    /* stacking context堆叠上下文效果 */
+    isolation: isolate;
+    background-color: var(--header-background1);
+    anchor-name: --hovered-option;
+    /* 是fontsize的倍数，不要有单位，normal是1.2倍 */
+    /* line-height: 1;
+    font-style: 12px; */
+}
+
+.nav-links {
+    & ul {
+        display: flex;
+        /* 水平排列 */
+        list-style-type: none;
+        /* solved nav left distance being too large */
+        padding: 5px 20px;
+        margin: 0px 0px;
+    }
+
+    & ul::before,
+    & ul::after {
+        content: '';
+        position: absolute;
+        top: anchor(top);
+        left: anchor(left);
+        right: anchor(right);
+        bottom: anchor(bottom);
+        z-index: -1;
+        background: var(--nav-indicator-hover);
+        transition: var(--nav-trans-duration) var(--nav-trans-easing);
+        pointer-events: none;
+        border-radius: 15px 15px 15px 15px;
+    }
+
+    & ul::before {
+        position-anchor: --hovered-option;
+    }
+
+    & ul::after {
+        background: var(--nav-indicator-active);
+        position-anchor: --active-option;
+    }
+
+    & ul li {
+        position: relative;
+        /* 为子菜单定位做准备 */
+    }
+
+    & ul li.active {
+        display: block;
+        color: var(--nav-link-color);
+        transition: color 150ms ease-in-out;
+    }
+
+    /* &>a { */
+    & ul li>a {
+        display: block;
+        padding: .5em 1em;
+        text-decoration: none;
+        color: var(--nav-link-color);
+        font-size: 1.2rem;
+        transition: color 150ms ease-in-out;
+
+        &:hover {
+            anchor-name: --hovered-option;
+        }
+    }
+
+    /* 二级菜单 */
+    & ul li ul {
+        display: none;
+        /* 默认隐藏 */
+        position: absolute;
+        /*紧贴父菜单底部 */
+        top: 100%;
+        left: 0px;
+        /* 悬停显示 */
+        /* color: var(--nav-link-color); */
+        background-color: var(--nav-bg);
+        transition: color 150ms ease-in-out;
+        border: 1px solid var(--clr-lines);
+        border-radius: var(--subnav-border-radius);
+        /* 边距 */
+        padding: 10px 20px;
+        min-width: 250px;
+        z-index: 1000;
+        flex-direction: column;
+    }
+
+    & ul li:hover>ul {
+        display: block;
+    }
+
+    & ul li ul li::hover {
+        color: var(--nav-link-color);
+        transition: color 150ms ease-in-out;
+        border: 1px 1px 1px 1px solid #797197;
+    }
+
+    & ul li ul li>a {
+        display: block;
+        padding: .5em 1em;
+        text-decoration: none;
+        color: var(--nav-link-color);
+        font-size: 1.2rem;
+        transition: color 150ms ease-in-out;
+
+        &:hover {
+            anchor-name: --hovered-option;
+        }
+    }
+}

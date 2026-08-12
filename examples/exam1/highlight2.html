@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    a{ 
+        /* 去除a标签的默认样式 */
+        text-decoration: none;
+        /* 将a标签转换成行内块元素 */
+        /*-- display: inline-block;
+        width: 100px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border: 1px solid black ; --*/
+    }
+    
+    div{ 
+        width: 400px;
+        height: 300px;
+        display: none;
+        /* 将所有的div绝对定位到一起 */
+        position: absolute;
+    }
+    .a{ 
+        background-color: pink;
+        }
+    .b{ 
+        background-color: green;
+    }
+    .c{ 
+        background-color:blue;
+    }
+    .d{ 
+        background-color: yellow;
+    }
+    /* a标签focus时颜色变红 */
+    a:focus{ 
+        color: red;
+        background-color: aqua;
+    }
+    /* a标签focus时他下一个兄弟元素出现 */
+    /*-- a:nth-of-type(1):focus+.a{ 
+        display: block;
+    } -->*/
+    a:nth-of-type(2):focus+.b{ 
+        display: block;
+    }
+    a:nth-of-type(3):focus+.c{ 
+        display: block;
+    }
+    a:nth-of-type(4):focus+.d{ 
+        display: block;
+    }
+</style>
+<body>
+    <a href="./highlight2.html">标题一</a>
+    <div class="a"></div>
+    <a href="./highlight3.html">标题二</a> 
+    <div class="b"></div>
+    <a href="#">标题三</a>
+    <div class="c"></div>
+    <a href="#">标题四</a>
+    <div class="d"></div>
+</body>
+</html>

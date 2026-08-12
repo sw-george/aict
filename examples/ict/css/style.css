@@ -1,0 +1,309 @@
+body {
+    background: grey;
+    overflow: hidden;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    display: flex;
+}
+
+p {
+    font-family: 'VCR OSD Mono', monospace;
+    color: white;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+a {
+    color: white;
+}
+
+@font-face {
+    font-family: 'VCR OSD Mono';
+    src: url('../fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+    font-display: swap;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.container {
+    /* width: fit-content; */
+    width: auto;
+    /* Adjusts to content size */
+    height: fit-content;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.header {
+    width: 100%;
+    height: 130px;
+    border-collapse: collapse;
+    background-image: url('../images/background-ultrakill.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.toppane {
+    display: flex;
+    /* 使用flex布局 */
+    justify-content: center;
+    /* 将子元素在水平方向上居中 */
+    align-items: center;
+    /* 将子元素在垂直方向上居中 */
+}
+
+.toppane .logo {
+    height: 64px;
+    width: 200px;
+    background-image: url('../images/logo-ultrakill.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.toppane .title {
+    height: 64px;
+    width: 85%;
+    text-align: center;
+    /* float: right; */
+}
+
+.navbar {
+    /* float: left; */
+    display: flex;
+    justify-content: center;
+    /* navbar水平置中 */
+    height: 64px;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar ul li {
+    display: inline;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+    /* width: 100%; */
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    /* content: "A"; */
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* dropdown styles */
+.dropdown-content ul {
+    background-color: #555;
+    /* width: 130px; */
+    List-style-type: none;
+    padding-left: 15px;
+}
+
+.dropdown-content ul li a {
+    display: block;
+    float: none;
+    min-width: 160px;
+    background-color: #FF7F7F;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    text-decoration: none;
+    text-align: left;
+    padding: 12px 16px;
+    color: black;
+}
+
+/* .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+} */
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.context {
+    float: left;
+    /* clear: both; */
+}
+
+.leftpane {
+    width: 25%;
+    height: 800px;
+    min-width: 200px;
+    background-color: darkblue;
+    border-collapse: collapse;
+    float: left;
+}
+
+.leftpane span {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    align-items: first baseline;
+    /* float: left; */
+    /* width: 80%; */
+    margin: 40px 20px;
+
+}
+
+.leftpane button {
+    /* display: inline-block;
+    flex-direction: column;
+     */
+    height: 30px;
+    /* top,left,bottom,right */
+    margin: 5px 0px 5px 0px;
+    /* padding: 2px 6px; */
+    /* border-style: solid; */
+    /* border: 1px solid rgb(160, 26, 26); */
+    border-radius: 4px;
+    /* background-color: black; */
+    color: black;
+    cursor: pointer;
+    outline: none;
+    /* position: absolute; */
+    text-align: center;
+}
+
+.leftpane button:hover {
+    background-color: #FF7F7F;
+    color: red;
+    border-color: #FF7F7F;
+}
+
+.leftpane button:active {
+    background-color: #FF7F7F;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.rightpane {
+    width: 75%;
+    height: 800px;
+    position: relative;
+    margin-left: 25%;
+    background-color: black;
+    border-collapse: collapse;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.rightpane a {
+    text-decoration: underline;
+    color: blue;
+}
+
+.rightpane img {
+    border-style: solid;
+    border: 5px solid blueviolet;
+    object-fit: cover;
+    height: auto;
+}
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}

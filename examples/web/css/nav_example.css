@@ -1,0 +1,427 @@
+@layer base, demo;
+
+@layer demo {
+
+    /* general styling not relevant for this demo */
+    @layer base {
+        * {
+            box-sizing: border-box;
+            /* top留白 */
+            /* margin: 0px; */
+        }
+
+        :root {
+            /* --nav-height: 50px; */
+            color-scheme: light dark;
+            --bg-dark: rgb(12, 10, 9);
+            --bg-light: rgb(248, 244, 238);
+            --txt-light: rgb(10, 10, 10);
+            --txt-dark: rgb(245, 245, 245);
+            --line-light: rgba(0 0 0 / .25);
+            --line-dark: rgba(255 255 255 / .25);
+            --clr-bg: light-dark(var(--bg-light), var(--bg-dark));
+            --clr-txt: light-dark(var(--txt-light), var(--txt-dark));
+            --clr-lines: rgb(235, 0, 162);
+            --nav-indicator-hover: rgb(64, 12, 53);
+            /* --nav-indicator-active: rgb(235, 0, 162); */
+            --header-background: rgb(14, 17, 23);
+            --header-background1: rgb(121, 3, 227);
+            --nav-bg: rgb(5, 47, 74);
+            --nav-link-color: white;
+            --nav-link-color-active: white;
+            --nav-padding: 5px;
+            --nav-border-radius: 16px;
+            /* subnav radius vw是相对viewport值 */
+            --subnav-border-radius: 15px;
+            --nav-trans-duration: 700ms;
+            --nav-trans-easing: linear(0, 1 44.7%, 0.898 51.8%, 0.874 55.1%, 0.866 58.4%, 0.888 64.3%, 1 77.4%, 0.98 84.5%, 1);
+            --mainbody-bg: rgb(28, 26, 23);
+        }
+
+        body {
+            background-color: var(--clr-bg);
+            color: var(--clr-txt);
+            margin: 0;
+            /* padding: 10pt; */
+            /* margin: 10px; */
+            font-family: 'VCR OSD Mono', monospace, Arial, "MSTrebuchet", sans-serif;
+            font-size: 1rem;
+            /* line-height: 1.5; */
+            /* display: grid; */
+            place-content: center;
+            gap: 2rem;
+            background-image: url('../images/body_background.jpg');
+            /* background-position: center; */
+
+            &>* {
+                outline: 1px dashed red;
+            }
+        }
+
+        h3 {
+            height: 30pt;
+            padding: 5pt 0pt;
+        }
+
+        p {
+            display: flex;
+            flex-direction: row;
+            padding: 5pt 10pt;
+            line-height: 20px;
+        }
+
+        li {
+            line-height: 20px;
+        }
+
+        .header {
+            /* line-height: 50px; */
+            display: flex;
+            /* flex-direction: row; */
+            background-color: var(--header-background);
+            position: relative;
+            width: 100%;
+            /* top: 0; */
+            transition: transform 0.2s ease-in-out;
+            /* line-height: 60px; */
+            /* display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center; */
+            /* align-items: center; */
+
+        }
+
+        .container {
+            display: flex;
+            background-color: #797197;
+            position: fixed;
+            transition: transform 0.2s ease-in-out;
+            line-height:150px;
+        }
+
+        .container.hidden {
+            /* display: none; */
+            /* transform: translateY (calc(-1 * var(--nav-height))); */
+            transform: translateY (-100%);
+            /* box-shadow: none; */
+        }
+
+        .row-container {
+            display: flex;
+            /* 外层横向排列 */
+            gap: 10px;
+        }
+
+        .column-container {
+            display: flex;
+            /* 内层纵向排列 */
+            flex-direction: column;
+            gap: 5px;
+            /* background: lightgreen; */
+            /* padding: 10px; */
+        }
+    }
+
+    @font-face {
+        font-family: 'VCR OSD Mono';
+        src: url('../fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+        font-display: swap;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 400px;
+
+        & {
+            #logo_pic {
+                width: 45px;
+                /* height: var(--nav-height); */
+                padding: 5px 5px;
+            }
+        }
+    }
+
+    /* main nav code goes here */
+    .mainnav {
+        display: flex;
+        align-items: center;
+        /* border: 2px solid var(--clr-lines); */
+        border-radius: var(--nav-border-radius);
+        isolation: isolate;
+        /* width: fit-content; */
+        /* padding: var(--nav-padding); */
+        background-color: var(--header-background1);
+        /* line-height: 60px; */
+        /* display: grid;
+        grid-template-columns: 1fr auto 1fr; */
+
+        /* & { */
+            anchor-name: --hovered-option;
+
+            & ul {
+                display: flex;
+                /* 水平排列 */
+                list-style-type: none;
+            }
+
+            & ul::before,
+            & ul::after {
+                content: '';
+                position: absolute;
+                top: anchor(top);
+                left: anchor(left);
+                right: anchor(right);
+                bottom: anchor(bottom);
+                z-index: -1;
+                background: var(--nav-indicator-hover);
+                transition: var(--nav-trans-duration) var(--nav-trans-easing);
+                pointer-events: none;
+                border-radius: 15px 15px 15px 15px;
+            }
+
+            & ul::before {
+                position-anchor: --hovered-option;
+            }
+
+            & ul::after {
+                background: var(--nav-indicator-active);
+                position-anchor: --active-option;
+            }
+
+            & ul li {
+                position: relative;
+                /* 为子菜单定位做准备 */
+            }
+
+            & ul li.active {
+                display: block;
+                color: var(--nav-link-color);
+                transition: color 150ms ease-in-out;
+            }
+
+            /* &>a { */
+            & ul li>a {
+                display: block;
+                padding: .5em 1em;
+                text-decoration: none;
+                color: var(--nav-link-color);
+                font-size: 1.2rem;
+                transition: color 150ms ease-in-out;
+
+                &:hover {
+                    anchor-name: --hovered-option;
+                }
+            }
+
+            /* 二级菜单 */
+            & ul li ul {
+                display: none;
+                /* 默认隐藏 */
+                position: absolute;
+                /*紧贴父菜单底部 */
+                top: 100%;
+                left: 0px;
+                /* 悬停显示 */
+                /* color: var(--nav-link-color); */
+                background-color: var(--nav-bg);
+                transition: color 150ms ease-in-out;
+                border: 1px solid var(--clr-lines);
+                border-radius: var(--subnav-border-radius);
+                /* 边距 */
+                padding: 0px 20px 0px 0px;
+                min-width: 250px;
+                z-index: 1000;
+                flex-direction: column;
+            }
+
+            & ul li:hover>ul {
+                display: block;
+            }
+
+            & ul li ul li::hover {
+                color: var(--nav-link-color);
+                transition: color 150ms ease-in-out;
+                border: 1px 1px 1px 1px solid #797197;
+            }
+
+            & ul li ul li>a {
+                display: block;
+                padding: .5em 1em;
+                text-decoration: none;
+                color: var(--nav-link-color);
+                font-size: 1.2rem;
+                transition: color 150ms ease-in-out;
+
+                &:hover {
+                    anchor-name: --hovered-option;
+                }
+            }
+        /* } */
+    }
+
+    .mainbody {
+        background-color: var(--mainbody-bg);
+        /* padding-top: 50px; */
+    }
+
+    /* Sidebar和Posts 父元素开启flex即可 */
+    .context {
+        min-height: 100vh;
+        /* display: table-cell; */
+        /* display: flex; */
+        /* flex-direction: row; */
+        /* justify-content: flex-start; */
+        /* background-color: black; */
+        /* flex: 1; */
+        flex-wrap: nowrap;
+        /* align-items: center; */
+        /* align-self: 50pt; */
+
+        #sidebar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: fit-content;
+            height: fit-content;
+            /* align-items: center; */
+            /* background-color: blue; */
+            border-width: 1pt;
+            border-color: aquamarine;
+            border-radius: 20px;
+            border-style: solid;
+            background-color: rgb(37, 37, 41);
+            /* 缩放时变化，0不变 default 1 */
+            /* flex-shrink: 0; */
+            /* width: 200pt; */
+            /* justify-content: flex-start; */
+            /* align-items: center; */
+            flex-basis: auto;
+
+            nav ul {
+                /* display: flex; */
+                /* 垂直方向布局 */
+                flex-direction: column;
+                /* 子元素间距，Flex布局常用 */
+                gap: 5pt;
+                padding-left: 20pt;
+                padding-right: 20pt;
+            }
+
+            nav ul li {
+                /* display: inline; */
+                list-style-type: none;
+            }
+
+            nav ul li button {
+                border-radius: 4px;
+                color: rgb(255, 255, 255);
+                outline: none;
+                cursor: pointer;
+                width: 120pt;
+                height: 25pt;
+                background: none;
+                column-gap: 10px;
+                margin-bottom: 5px;
+                background-color: black;
+            }
+
+            nav ul li button:hover {
+                background-color: #FF7F7F;
+                color: red;
+                border-color: #FF7F7F;
+            }
+
+            nav ul li button:active {
+                background-color: #FF7F7F;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+        }
+
+        #Breadcrumbs {
+            display: flex;
+            align-items: center;
+            /* flex-direction: row; */
+        }
+
+        #posts {
+            /* display: flex; */
+            /* flex-direction: row; */
+            /* min-height: 420pt; */
+            min-width: 818pt;
+            height: fit-content;
+            word-wrap: normal;
+            /* justify-content: space-between; */
+            /* align-content: space-around; */
+            border-width: 1pt;
+            border-color: blue;
+            border-style: solid;
+            /* default 1 */
+            flex-shrink: 1;
+
+            img {
+                width: 150pt;
+            }
+        }
+    }
+}
+
+active link body:has(:target#link-1) nav>a[href="#link-1"],
+body:has(:target#link-2) nav>a[href="#link-2"],
+body:has(:target#link-3) nav>a[href="#link-3"],
+body:has(:target#link-4) nav>a[href="#link-4"] {
+    anchor-name: --active-option;
+    color: var(--nav-link-color-active);
+
+}
+
+
+/* -----------------global begin-------------- */
+
+#page_footer {
+    display: flex;
+    justify-content: center;
+}
+
+/* -------------layout begin------------------- */
+/* header#page_header {
+    width: 100%;
+    background-color: darkgreen;
+    height: 180px;
+}
+
+
+
+
+header#page_header nav ul,
+#page_footer nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#page_header nav ul li,
+footer#page_footer nav ul li {
+    padding: 0;
+    margin: 020px0 0;
+    display: inline;
+}
+
+section#sidebar {
+    float: left;
+    width: 25%;
+}
+
+section#posts {
+    float: right;
+    width: 74%;
+}
+
+footer#page_footer {
+    clear: both;
+    width: 100%;
+    display: block;
+} */
