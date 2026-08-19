@@ -55,21 +55,21 @@ header.hidden {
     /* 根据 header 高度调整 */
 }
 
-.sidebar {
+.side-bar {
     background-color: var(--card-bg);
     padding: 1rem;
 }
 
-.sidebar ul {
+.side-bar ul {
     list-style: none;
     padding: 0;
 }
 
-.sidebar li {
+.side-bar li {
     margin-bottom: 1rem;
 }
 
-.sidebar a {
+.side-bar a {
     color: var(--text-color);
     text-decoration: none;
 }

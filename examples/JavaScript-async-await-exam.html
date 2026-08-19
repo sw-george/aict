@@ -1,0 +1,75 @@
+<!-- JavaScript + async/await示例: -->
+<!-- 支持多个 HTML 顺序加载，每个加载完成后再发起对应的 API 请求。
+1.先异步加载 HTML（例如用 fetch 或 jQuery .load()）
+2.每个 HTML 加载完成后，再去执行对应的 fetch 请求 -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>异步加载多个HTML并顺序fetch</title>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script>
+        // 模拟要加载的 HTML 文件列表
+        const htmlFiles = [
+            { htmlUrl: 'page1.html', apiUrl: '/api/data1' },
+            { htmlUrl: 'page2.html', apiUrl: '/api/data2' },
+            { htmlUrl: 'page3.html', apiUrl: '/api/data3' }
+        ];
+
+        // 异步加载 HTML 文件
+        async function loadHtml(url) {
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`加载HTML失败: ${url} (${res.status})`);
+                return await res.text();
+            } catch (err) {
+                console.error(err);
+                return `<div style="color:red;">加载失败: ${url}</div>`;
+            }
+        }
+
+        // 异步获取 API 数据
+        async function fetchData(url) {
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`API请求失败: ${url} (${res.status})`);
+                return await res.json();
+            } catch (err) {
+                console.error(err);
+                return null;
+            }
+        }
+
+        // 主流程：顺序执行
+        async function loadAll() {
+            const container = document.getElementById('container');
+
+            for (const item of htmlFiles) {
+                // 1. 加载 HTML
+                const htmlContent = await loadHtml(item.htmlUrl);
+                const section = document.createElement('div');
+                section.innerHTML = htmlContent;
+                container.appendChild(section);
+
+                // 2. HTML 加载完成后再 fetch 数据
+                const data = await fetchData(item.apiUrl);
+                if (data) {
+                    const pre = document.createElement('pre');
+                    pre.textContent = JSON.stringify(data, null, 2);
+                    section.appendChild(pre);
+                }
+            }
+        }
+
+        // 启动
+        loadAll();
+    </script>
+</body>
+
+</html>
