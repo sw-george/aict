@@ -1,64 +1,108 @@
-# 项目结构
-web-app/
+/project
 │
-├── index.html                      # 首页
-├── about.html                      # 关于页面
-├── contact.html                    # 联系页面
+├── index.html
+├── app.js              # 启动入口
+├── config.js           # 配置文件（变量集中管理）
+├── utils.js            # 工具类
+├── event.js            # 事件管理类
+├── styles.css          # 样式文件
 │
-├── public/                         # 公共静态资源（构建时直接复制）
-│   ├── favicon.ico                  # 网站图标
-│   ├── robots.txt                   # SEO 爬虫规则
-│   └── manifest.json                # PWA 配置（可选）
+├── /pages              # 内容页面
+│     ├── page1.html
+│     └── page2.html
 │
-├── src/                            # 源码目录
-│   ├── styles/                      # 样式文件
-│   │   ├── _variables.css           # CSS 变量（颜色、字体等）
-│   │   ├── _mixins.css              # 常用样式混入（可选）
-│   │   ├── base.css                 # 基础样式（排版、通用类）
-│   │   ├── layout.css               # 布局样式
-│   │   ├── components/              # 组件样式
-│   │   │   ├── header.css
-│   │   │   ├── footer.css
-│   │   │   └── button.css
-│   │   └── pages/                   # 页面专属样式
-│   │       ├── home.css
-│   │       └── about.css
-│   │
-│   ├── scripts/                     # 脚本文件
-│   │   ├── main.js                  # 主入口脚本
-│   │   ├── helpers/                 # 工具函数
-│   │   │   ├── dom.js
-│   │   │   └── format.js
-│   │   └── libs/                     # 第三方库
-│   │       └── jquery.min.js
-│   │
-│   ├── assets/                      # 资源文件
-│   │   ├── images/
-│   │   │   ├── logo.svg
-│   │   │   ├── banner.jpg
-│   │   │   └── icons/
-│   │   │       └── menu.svg
-│   │   ├── fonts/
-│   │   │   ├── roboto.woff2
-│   │   │   └── roboto.ttf
-│   │   └── media/
-│   │       ├── intro.mp4
-│   │       └── bg-music.mp3
-│   │
-│   └── components/                  # HTML 组件（可选）
-│       ├── header.html
-│       └── footer.html
-│
-└── README.md                        # 项目说明文档
+└── /partials           # 公共模块
+      ├── header.html
+      ├── footer.html
+      ├── sidebar.html
+      └── breadcrumbs.html
 
-# 亮点:
-##  public/ 与 src/ 分离
-public/ 存放无需构建的静态文件，src/ 存放需要打包或处理的源码。
-## CSS 采用分层结构
-变量、混入、基础、布局、组件、页面样式分开，方便维护。
-## JS 模块化
-工具函数放在 helpers/，第三方库放在 libs/，避免混乱。
-## 资源分类更细
-图片、字体、媒体文件独立目录，命名清晰。
-# 可扩展性强
-预留 components/ 存放可复用 HTML 片段，方便模板化开发。
+/css
+│── variables.css   # 全局变量（颜色、字体、间距等）
+│── global.css      # 全局通用样式（reset、基础标签样式）
+│── layout.css      # 布局相关（header、main、footer、sidebar）
+│── components.css  # 组件样式（navbar、dropdown、card、breadcrumbs等）
+│── theme.css       # 主题切换（light/dark）
+CSS 加载优先级流程图
+
+Copy code
+┌───────────────────────────────┐
+│ 1. variables.css               │
+│   - 定义全局 CSS 变量           │
+│   - 必须最先加载，供后续使用    │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ 2. global.css                  │
+│   - Reset 样式（清除默认样式）  │
+│   - 全局标签样式（body, a 等） │
+│   - 使用 variables.css 的变量  │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ 3. layout.css                  │
+│   - 页面结构布局（header, main │
+│     footer, sidebar 等）       │
+│   - 依赖 global.css 基础样式   │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ 4. components.css              │
+│   - 具体组件样式（navbar, card │
+│     breadcrumbs 等）           │
+│   - 依赖 layout.css 结构        │
+└───────────────┬───────────────┘
+                │
+                ▼
+┌───────────────────────────────┐
+│ 5. theme.css                   │
+│   - 主题覆盖（html[data-theme] │
+│     方式）                     │
+│   - 必须最后加载，覆盖前面颜色 │
+└───────────────────────────────┘
+引入顺序示例:
+
+<!-- 1. 变量文件（必须最先引入，供后续文件使用） -->
+<link rel="stylesheet" href="css/variables.css">
+
+<!-- 2. 全局基础样式（reset、标签默认样式） -->
+<link rel="stylesheet" href="css/global.css">
+
+<!-- 3. 布局样式（header、main、footer、sidebar 等结构） -->
+<link rel="stylesheet" href="css/layout.css">
+
+<!-- 4. 组件样式（navbar、dropdown、card、breadcrumbs 等） -->
+<link rel="stylesheet" href="css/components.css">
+
+<!-- 5. 主题样式（light/dark 主题切换相关） -->
+<link rel="stylesheet" href="css/theme.css">
+
+为什么是这个顺序
+variables.css
+
+定义全局 CSS 变量（--color-primary 等），必须最先引入，这样后面的文件都能用这些变量。
+global.css
+
+定义全局 reset 和基础标签样式（body, a, button 等），作为所有样式的基础。
+layout.css
+
+定义页面结构布局（header、main、footer、sidebar 等），不涉及具体组件细节。
+components.css
+
+定义具体组件（导航栏、卡片、面包屑等）的样式，依赖布局和变量。
+theme.css
+
+定义主题切换（html[data-theme="dark"]）的覆盖样式，必须放最后，这样能覆盖前面所有颜色相关的定义。
+额外建议
+如果以后有页面级别的特殊样式（比如 home.css、blog.css），建议放在 theme.css 之后，这样可以覆盖主题和全局样式。
+如果有第三方 UI 库（Bootstrap、Tailwind 等），建议放在 variables.css 之前 或 global.css 之前，然后用你的变量和样式覆盖它。
+
+
+✅ 变量可全局使用（variables.css 最先）
+✅ 基础样式先打底（global.css）
+✅ 布局先于组件（layout.css → components.css）
+✅ 主题覆盖所有颜色（theme.css 最后）
+✅ 页面样式可随时覆盖（home.css 等放最后）

@@ -1,0 +1,50 @@
+/* custom font style */
+@font-face {
+    font-family: 'VCR OSD Mono';
+    src: url('../fonts/VCR_OSD_MONO_1.001.ttf') format('truetype');
+    font-display: swap;
+}
+
+* {
+    /* margin: 0;
+    padding: 0; */
+    box-sizing: border-box;
+}
+
+/* base reset基础重置 */
+html, body {
+    /* 让 htmlt和body 占满视口高度，并用 flex 布局 */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* fontsize字体和基准大小 */
+html {
+    font-family: var(font-family-base);
+    font-size: var(--font-size-base);
+    /* 让字体大小在不同屏幕自适应,这样在小屏不会太小，大屏不会太大 */
+    /* font-size: clamp(14px, 1vw + 1rem, 18px); */
+}
+
+body {
+    font-family: var(--font-family-base);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: background 0.3s, color 0.3s;
+}
+
+a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+a:hover {
+    /* 下划线underline */
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+

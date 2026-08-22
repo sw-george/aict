@@ -1,118 +1,85 @@
+/* ------------整体布局结构--------------- */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
-header {
-    position: fixed;
-    /* 固定在页面顶部 */
+.site-header {
+    display: flex;
+    justify-content: space-between;  /*左右分布，三栏布局则不需要设置这个 */
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    /* 三行表示滚动时header浮动 sticky无效 fixed有效*/
+    /* position: sticky; */
+    /* position: fixed; */
+    position: relative;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
+    gap: 0 var(--spacing-lg); 
+    padding: var(--spacing-md) var(--spacing-lg); /*header只在这里设置总边距，其余都logo、h1、nav和action都去掉上下边距 */
+    /* z-index: 1000; */
+    transition: all 0.3s ease;
+}
+
+/* main 占据剩余空间 */
+.content {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    color: var(--header-footer-text);
-    padding: 10px 20px;
-    z-index: 1000;
-    /* 确保在最上层 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    /* header 高度，在header置顶浮动时，让 main 不被 header 遮挡 */
+    /* margin-top: 80px;  */
 }
 
-/* 左侧 Logo */
-.logo {
+.sidebar {
+    width: 200px;
+    padding: var(--spacing-md);
+    border-right: 1px solid var(--color-border);
+}
+
+.right-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-lg);
+}
+
+ img {
+    /* justify-items: center; */
+
+}
+
+/* footer 固定在底部 */
+.site-footer {
+    padding: var(--spacing-md);
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9em;
+}
+
+/* ------------以下是局部布局--------------- */
+/* header的左中右布局 */
+/* logo-title，相当于header-left*/
+.header-logo {
+    flex: 0 0 auto;  /* 左中右布局要 */
+    flex-grow: 1;
     display: flex;
     align-items: center;
-    gap: 10px;
-}
-
-.logo img {
-    height: 40px;
-}
-
-header h1 {
+    gap: 0 var(--spacing-md);  /* 按钮间距，参考0.5rem  */
+    padding: 0;
     margin: 0;
-    font-size: 1.2rem;
 }
 
-/* 隐藏状态（向上滑出） */
-header.hidden {
-    transform: translateY(-100%);
+/* h1要设置，否则高度会撑开上下20px */
+.header-logo h1 {
+    margin: 0;
 }
 
-/* 主体内容需要留出 header 高度 */
-.container {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    min-height: calc(100vh - 120px);
-    /* 减去 header/footer 高度 */
-    padding-top: 80px;
-    /* 根据 header 高度调整 */
-}
-
-.side-bar {
-    background-color: var(--card-bg);
-    padding: 1rem;
-}
-
-.side-bar ul {
-    list-style: none;
+/* header-actions相当于header-right布局 */
+.header-actions {
+    /*flex: 0 0 auto;   左中右布局要 */
+    margin-left: auto; /* 推到最右 */
+    display: flex;
+    align-items: center;
+    gap: 0 var(--spacing-md); /* 按钮间距，参考0.5rem  */
     padding: 0;
 }
-
-.side-bar li {
-    margin-bottom: 1rem;
-}
-
-.side-bar a {
-    color: var(--text-color);
-    text-decoration: none;
-}
-
-main {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1rem;
-    padding: 1rem;
-}
-
-h2 {
-    margin-top: 0.8rem;
-}
-
-/* 底部居中 */
-.site-footer {
-    background-color: var(--header-footer-bg);
-    color: var(--header-footer-text);
-    text-align: center;
-    padding: 1rem;
-}
-
-/* 响应式布局 */
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-
-    .main-content {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        order: -1;
-        /* 移到顶部 */
-    }
-}
-
-/* @media (width >= 640px) {
-    @media not all and (width >= 1200px) {
-        .sm\:max-lg\:pe-\[calc\(var\(--spacing-margin\)-13px\)\] {
-            padding-inline-end: calc(var(--spacing-margin) - 13px);
-        }
-    }
-} */

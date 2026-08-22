@@ -1,0 +1,240 @@
+/* 
+ * 使用纯css+anchor Positioning实现带滑动效果多级菜单
+ * email: lzysum1@outlook.com、lymsum@outlook.com
+ * reference url: https://freefrontend.com/css-anchor-positioning/
+ */
+ 
+@import url(https://fonts.bunny.net/css?family=jura:300,500);
+
+@layer base, full;
+@layer full {
+    :root {
+        --nav-bg: rgb(5, 47, 74);
+        --nav-txt-color: rgb(10, 10, 10);
+        --nav-line-color: rgba(255 255 255 / .25);
+        --nav-link-color: white;
+        --nav-link-color-active: white;
+        --nav-indicator-hover: rgb(0, 105, 168);
+        --nav-indicator-active: rgb(0, 166, 244);
+        --nav-trans-duration: 700ms;
+        --nav-trans-easing: linear(0, 1 44.7%, 0.898 51.8%, 0.874 55.1%, 0.866 58.4%, 0.888 64.3%, 1 77.4%, 0.98 84.5%, 1);
+        /* spacing间距变量 (基于rem,跟font-size有关)，小中大sm/md/lg(对应5/10/20 px),例如: 1rem = 16px */
+        --nav-spacing-sm: 0.3125rem;
+        --nav-spacing-md: 0.625rem;
+        --nav-spacing-lg: 1.25rem;
+        /* radius圆角变量 (基于rem,跟font-size有关)，小中大sm/md/lg(对应4/8/16 px),例如: 1rem = 16px (font-size) */
+        /* 完美胶囊圆角的实现方案（未知元素尺寸场景）,设定一个超大尺寸 */
+        --nav-radius-perfect: 9999rem;
+        --nav-radius-sm: 1rem;
+        --nav-width: 450px;  /* 此版本nav固定宽度，否则两边不能留空*/
+        --nav-height: 52px;
+        --nav-padding-x: 16px;
+
+        --nav-arrow-size: 6px; /* 小箭头尺寸 */
+        --nav-arrow-color: var(--nav-txt-color); /* 小箭头颜色 */
+        --nav-transition-speed: 0.25s; /* 动画速度 */
+    }
+
+    /* Full code goes here */
+    .site-header nav {
+        /* 定义滑块的锚点 */
+        anchor-name: --hovered-option; 
+
+        /* flex: 1; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* position: relative; 加了就没有整条的效果 */
+        border-radius: var(--nav-radius-perfect);
+        background: var(--nav-bg);
+        /* background-color: rgba(22,34,55,0.6); */
+        /* background-color: red; */
+        /* border: 1px solid var(--nav-clr-lines); */
+
+        /* padding: 10px 20px; */
+        /* gap: 2rem; */
+        /* width: fit-content; */
+        /* isolation: isolate; */
+        /* height: var(--nav-height);*/
+        /* width: var(--nav-width); */
+
+        /* Public Slider */
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            /* Background/Slider/Text z-index: 0/1/2防止滑块挡住文字 */
+            z-index: 1;
+            top: anchor(top);
+            left: anchor(left);
+            right: anchor(right);
+            bottom: anchor(bottom);
+            background: var(--nav-indicator-hover);
+            transition: var(--nav-trans-duration) var(--nav-trans-easing);
+            border-radius: var(--nav-radius-perfect);
+            pointer-events: none;
+            /* Slider margin滑块与背景之边距，生成层叠效果 */
+            margin: 0.2rem;
+            /* height: var(--nav-height); */
+        }
+
+        /* anchor positioning */
+        &::before {
+            position-anchor: --hovered-option;
+        }
+
+        &::after {
+            background: var(--nav-indicator-active);
+            position-anchor: --active-option;
+        }
+
+        /* a */
+        & a {
+            display: block;
+            text-decoration: none;
+            list-style: none;
+            color: var(--nav-txt-color);
+            font-size: 1rem;
+            /* background-color: brown; */
+            transition: color 150ms ease-in-out;
+            /* min-width: max-content;  关键：宽度自适应内容 */
+            white-space: nowrap; /* 防止换行 */
+            /* position和z-index一起设置，让文字在滑块上方 */
+            position: relative;
+            z-index: 2;
+
+            /* anchor定义：anchor-name */
+            &:hover {
+                anchor-name: --hovered-option;
+            }
+        }
+
+        /* 所有菜单项 hover 时都成为锚点 */
+        & li:hover {
+            anchor-name: --hovered-option;
+        }
+
+        /* 一级菜单 */
+        & ul {
+            /* anchor-name: --hovered-option; */
+            /* 水平菜单：ul中设置display: flex;  */
+            display: flex;
+            justify-content: center;
+            position: relative;
+            /* 关键：让子元素自动换行排列，这里不要换行 */
+            /* flex-wrap: wrap; */
+            list-style: none;
+            /* background-color: blue; */
+            border-radius: var(--nav-radius-perfect);
+            /* 控制整个nav的高度都在这里设置，其余都设置为0 */
+            padding: 0; 
+            margin: 0 var(--nav-spacing-lg);
+            gap: var(--nav-spacing-lg); /* 项目之间的间距 20px*/
+        }
+
+        /* 菜单定位及无符号样式 */
+        & ul li {
+            position: relative;
+            list-style: none;
+            /* display: block; */
+            /* padding撑开box,margin一般在<a>中设置，两边留白 */
+            /* padding: 0 var(--nav-padding-x); */
+            /* height与line-height设置为相同时表示上下居中 */
+            height: var(--nav-height);
+            line-height: var(--nav-height);
+            /* background-color: chocolate; */
+            border-radius: var(--nav-radius-perfect);
+
+            white-space: nowrap; /* 防止内容内部换行 */
+            cursor: pointer;
+        }
+
+        /* 鼠标高亮效果 */
+        & ul>li:hover ul {
+            display: block;
+        }
+
+        /* 有下级菜单的小箭头,只需在对应li添加class类:has-submenu */
+        & ul>li.has-submenu>a::after {
+            content: "";
+            display: inline-block;
+            margin-left: 6px;
+            border: var(--nav-arrow-size) solid transparent;
+            border-top-color: var(--nav-arrow-color); /* 需要theme中light主题添加此color,其余默认也可*/
+            vertical-align: middle;
+            transition: transform var(--nav-transition-speed) ease;
+        }
+
+        /* 悬停时箭头旋转 */
+        & ul>li.has-submenu:hover>a::after {
+            transform: rotate(180deg);
+        }
+
+        /* 二级菜单，display:none默认隐藏,绝对定义 */
+        & ul ul {
+            display: none;
+            position: absolute;
+            background-color: var(--nav-bg);
+            transition: var(--nav-trans-duration) var(--nav-trans-easing);
+            border-radius: var(--nav-radius-sm);
+            /* CSS 渲染规则：z-index 只能在同一个 stacking context 内比较，如果对应样式中有position + z-index、opacity < 1、transform 等属性，就会创建一个新的 stacking context。*/
+            /* 这里不能加z-index: 0;加了也没用，滑块照样会盖住文字，如果二级菜单的 <ul> 或 <li> 有position+z-index属性就会创建新stacking context层，滑块如果在外层 stacking context，而二级菜单文字在内层 stacking context，外层的滑块会盖住整个内层，无论内层文字的 z-index 多高
+            这就是为什么你给二级菜单文字 z-index: 2 也没用。 */
+            /* z-index: 0; */
+        }
+
+        & ul ul>li,
+        & ul ul>li>a {
+            margin: 5px 20px;
+        }
+    }
+}
+
+/* active link */
+/* body:has(:target#link-1) nav>a[href="#link-1"],
+body:has(:target#link-2) nav>a[href="#link-2"],
+body:has(:target#link-3) nav>a[href="#link-3"],
+body:has(:target#link-4) nav>a[href="#link-4"] { */
+body:has(a:focus) nav a {
+    anchor-name: --active-option;
+    color: var(--nav-link-color-active);
+}
+
+/* general styling not relevant for this demo */
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
+
+    :root {
+        color-scheme: light dark;
+        --nav-bg-dark: rgb(12, 10, 9);
+        --nav-bg-light: rgb(248, 244, 238);
+        --nav-txt-light: rgb(10, 10, 10);
+        --nav-txt-dark: rgb(245, 245, 245);
+        --nav-line-light: rgba(0 0 0 / .25);
+        --nav-line-dark: rgba(255 255 255 / .25);
+        --nav-clr-bg: light-dark(var(--nav-bg-light), var(--nav-bg-dark));
+        --nav-clr-txt: light-dark(var(--nav-txt-light), var(--nav-txt-dark));
+        --nav-clr-lines: light-dark(var(--nav-line-light), var(--nav-line-dark));
+    }
+
+    body {
+        /* 加上这个content内容多时会让header消失 */
+        /* background-color: var(--nav-clr-bg);
+        color: var(--nav-clr-txt);
+        min-height: 100svh;
+        margin: 0;
+        padding: 2rem;
+        font-family: "Jura", sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        display: grid;
+        place-content: center;
+        gap: 2rem; */
+
+        &>* {
+            /*outline: 1px dashed red;*/
+        }
+    }
+}

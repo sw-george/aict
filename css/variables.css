@@ -1,0 +1,44 @@
+:root {
+    /* font */
+    /* Arial, sans-serif */
+    --font-family-base: 'VCR OSD Mono', monospace;
+    --font-size-base: 16px;
+
+    /* base color,也是light时color*/
+    --color-primary: #007BFF;
+    --color-primary-hover: #0056b3;
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-border: #cccccc;
+    --color-muted: #f8f9fa;
+
+    /* spacing间距变量 (基于rem,跟font-size有关)，小中大sm/md/lg(对应5/10/20 px),例如: 1rem = 16px */
+    --spacing-sm: 0.3125rem;
+    --spacing-md: 0.625rem;
+    --spacing-lg: 1.25rem;
+
+    /* radius圆角变量 (基于rem,跟font-size有关)，小中大sm/md/lg(对应4/8/16 px),例如: 1rem = 16px */
+    --radius-sm: 0.2500rem;
+    --radius-md: 0.5000rem;
+    --radius-lg: 1rem;
+
+    /* Selector */
+    --color-input-bg: #f0f0f0;
+    --color-input-text: #333333;
+
+    /* card */
+    --card-bg: #ffffff;
+    --card-border: #cccccc;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+
+    --main-nav-bg: #000080;
+    /* --nav-bg: rgb(8, 52, 63); */
+    --nav-border-radius: 15px;
+    --nav-link-color: black;
+    --nav-trans-duration: 700ms;
+    --nav-trans-easing: linear(0, 1 44.7%, 0.898 51.8%, 0.874 55.1%, 0.866 58.4%, 0.888 64.3%, 1 77.4%, 0.98 84.5%, 1);
+    --nav-indicator-hover: rgb(9, 11, 143);
+    --nav-indicator-padding: calc(var(--spacing-sm) * 2);
+    --clr-lines: rgb(11, 190, 167);
+    --subnav-border-radius: 15px;
+}

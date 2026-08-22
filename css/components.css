@@ -1,0 +1,113 @@
+/* 滚动后固定样式 */
+.site-header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--color-muted);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    /* transform: translateY(-10px); */
+        transform: translateY(-100%);
+    animation: slideDown 0.3s ease forwards;
+}
+
+/* 占位，防止内容跳动 */
+.header-placeholder {
+    height: var(--header-height, 80px);
+}
+
+/* 下滑动画 */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* logo */
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* 暗模式切换按钮 */
+.dark-mode-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dark-mode-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 表单控件通用样式 */
+select, button {
+    background: var(--color-input-bg);
+    color: var(--color-input-text);
+    border: 1px solid var(--color-text);
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    font-family: var(font-family-base);
+    font-size: var(--font-size-base);
+}
+
+/* header中右侧按钮组按钮图标设置 */
+.icon-btn {
+    background: var(--color-input-bg);
+    color: var(--color-input-text);
+    border: 1px solid var(--color-text);
+    padding: 0.4rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Sidebar buttons */
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    border: none;
+    background: var(--color-primary);
+    color: var(--color-text);
+    border-radius: var(--radius-sm);
+    font-family: var(font-family-base);
+    font-size: var(--font-size-base);
+}
+.sidebar button:hover {
+    background: var(--color-primary-hover);
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    font-family: var(font-family-base);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Cards */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-lg);
+    width: calc(50% - var(--spacing-md));
+    box-shadow: 0 2px 5px var(--card-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px var(--card-shadow);
+}

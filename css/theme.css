@@ -1,21 +1,91 @@
-.theme-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    margin-right: 2rem;
+/* theme.css */
+/* 暗黑模式变量 */
+html[data-theme="dark"] {
+    --color-primary: rgb(5, 47, 74);
+    --color-primary-hover: rgba(5, 47, 74, 0.8);
+    --color-bg: rgb(18, 18, 18);  /* content背景色 */
+    --color-text: white;
+    --color-border: #333333;  /* 各border color */
+    --color-muted: #1e1e1e;   /* header、aside等背景色 */
+    --color-link: #b05e27;
+
+    --nav-bg: rgb(5, 47, 74);  /* nav背景色，常和--color-primary一致 */
+    --nav-txt-color: white;
+    --nav-line-color: rgba(255 255 255 / .25);
+    --nav-link-color: white;
+    --nav-link-color: rgb(164, 41, 41);
+    --nav-link-color-active: white;
+    --nav-indicator-hover: rgba(0, 123, 255, 0.2);
+    --nav-indicator-active: rgb(0, 86, 179, 0.3);
+
+    --spacing-md: 0.5rem; /* 暗黑模式中等间距更小,按钮更紧凑 */
+
+    /* Selector */
+    --color-input-bg: #1e1e1e;
+    --color-input-text: #e0e0e0;
+
+    /* Card */
+    --card-bg: #1e1e1e;
+    --card-border: #333333;
+    --card-shadow: rgba(0, 0, 0, 0.5);
 }
 
-.theme-btn img {
-    width: 24px;
-    height: 24px;
+html[data-theme="light"] {
+    --color-primary: #007bffb3;  /*aside*/
+    --color-primary-hover: rgba(0, 123, 255, 0.1);
+    --color-text: black;
+
+    --nav-bg: #007bffb3;
+    --nav-txt-color: #a01717;
+    --nav-line-color: #333333;
+    --nav-link-color: #333333;
+    --nav-link-color-active: rgba(0, 0, 0, 0.6);
+    --nav-indicator-hover: rgba(0, 123, 255, 0.3);
+    --nav-indicator-active: rgba(0, 123, 255, 0.1);
+    --nav-indicator-hover: rgba(0, 105, 168, 0.3);
+    --nav-indicator-active: rgba(0, 105, 168, 0.7);    
+    
+    /* arrow-color light不能是白色 */
+    --nav-arrow-color: rgba(0, 0, 0, 0.6);
 }
 
-/* body.dark {
-    background-color: #121212;
-    color: #ffffff;
+/* 仿古色模式（Sepia） */
+html[data-theme="sepia"] {
+    --color-primary: rgb(160, 117, 65);
+    --color-primary-hover: rgba(160, 117, 65, 0.9);
+    --color-bg: rgba(228, 194, 148, 0.7); /*content #f4ecd8;*/
+    --color-text: #270101;
+    --color-border: #333333;
+    --color-muted: rgba(228, 194, 148, 0.6);  /* header、aside等背景色 */
+    --color-link: #b05e27;
+
+    --nav-bg: rgb(160, 117, 65);
+    --nav-txt-color: rgb(10, 10, 10);
+    --nav-line-color: rgba(255 255 255 / .25);
+    --nav-link-color: white;
+    --nav-link-color-active: background-clip: border-box;;  /* breadcrumbs、nav active 文本*/
+    --nav-indicator-hover: rgba(228, 194, 148, 0.3);
+    --nav-indicator-active: rgba(228, 194, 148, 0.5);
+
+    /* Selector */
+    --color-input-bg: rgb(150, 111, 64);
+    --color-input-text: rgb(10, 10, 10);
+
+    /* Card */
+    --card-bg: rgb(150, 111, 64);
+    --card-border: #333333;
+    --card-shadow: rgba(0, 0, 0, 0.5);
 }
 
-body.dark header {
-    background-color: #1e1e1e;
-} */
+.site-header {
+    background: var(--color-muted);
+    color: var(--color-text);
+}
+
+.sidebar {
+    background: var(--color-muted);
+}
+
+.site-footer {
+    background: var(--color-muted);
+}
